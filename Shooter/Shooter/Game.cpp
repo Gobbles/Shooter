@@ -46,70 +46,13 @@ void Game::ProcessEvents()
 }
 void Game::CheckEvents(sf::Event &event)
 {
+	Player1->CheckInput(event);
 	//check for our Input Events
 	switch(event.type)
 	{
 		case sf::Event::Closed:
 		{
 			window.close();
-		}
-		case sf::Event::KeyPressed:
-		{
-			switch(event.key.code)
-			{
-				case sf::Keyboard::A:
-				{
-					break;
-				}
-				case sf::Keyboard::D:
-				{
-					break;
-				}
-				case sf::Keyboard::W:
-				{
-					break;
-				}
-				case sf::Keyboard::S:
-				{
-					break;
-				}
-				case sf::Keyboard::Space:
-				{
-					break;
-				}
-				case sf::Keyboard::Q:
-				{
-					break;
-				}
-				case sf::Keyboard::E:
-				{
-					break;
-				}
-			}
-			break;
-		}
-		case sf::Event::KeyReleased:
-		{
-			switch(event.key.code)
-			{
-				case sf::Keyboard::A:
-				{
-					break;
-				}
-				case sf::Keyboard::D:
-				{
-					break;
-				}
-				case sf::Keyboard::W:
-				{
-					break;
-				}
-				case sf::Keyboard::S:
-				{
-					break;
-				}
-			}
-			break;
 		}
 	}
 }
