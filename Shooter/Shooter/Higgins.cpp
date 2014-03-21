@@ -11,11 +11,39 @@ Higgins::Higgins() : Entity("")
 	defensiveQuad = sf::RectangleShape(sf::Vector2f(80,130));
 	defensiveQuad.setOrigin(defensiveQuad.getSize().x/2,defensiveQuad.getSize().y/2);
 	defensiveQuad.setFillColor(sf::Color(0,255,0,64));
+	BuildCombos();
 }
 
 Higgins::~Higgins()
 {
+	
+}
 
+void Higgins::BuildCombos()
+{
+	Combos[0][0] = InputCommands::Input::Down;
+	Combos[0][1] = InputCommands::Input::Right;
+	Combos[0][2] = InputCommands::Input::Light_Attack;
+	Combos[0][3] = InputCommands::Input::Invalid;
+	Combos[0][4] = InputCommands::Input::Invalid;
+
+	Combos[1][0] = InputCommands::Input::Down;
+	Combos[1][1] = InputCommands::Input::Down;
+	Combos[1][2] = InputCommands::Input::Down;
+	Combos[1][3] = InputCommands::Input::Down;
+	Combos[1][4] = InputCommands::Input::Down;
+
+	Combos[2][0] = InputCommands::Input::Down;
+	Combos[2][1] = InputCommands::Input::Down;
+	Combos[2][2] = InputCommands::Input::Down;
+	Combos[2][3] = InputCommands::Input::Down;
+	Combos[2][4] = InputCommands::Input::Down;
+
+	Combos[3][0] = InputCommands::Input::Down;
+	Combos[3][1] = InputCommands::Input::Down;
+	Combos[3][2] = InputCommands::Input::Down;
+	Combos[3][3] = InputCommands::Input::Down;
+	Combos[3][4] = InputCommands::Input::Down;
 }
 
 void Higgins::Draw(sf::RenderWindow& window)
@@ -30,5 +58,5 @@ void Higgins::Draw(sf::RenderWindow& window)
 
 void Higgins::Update(float timePassed)
 {
-
+	inputHandler.Update(timePassed);
 }

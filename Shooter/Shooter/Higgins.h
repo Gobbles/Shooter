@@ -13,7 +13,7 @@ public:
 	virtual void Update(float timePassed);
 	virtual void Draw(sf::RenderWindow& window);
 private:
-
+	void BuildCombos();
 };
 
 #endif

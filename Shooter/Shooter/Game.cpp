@@ -20,13 +20,13 @@ void Game::Run()
 {
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
-	static const sf::Time timePerFrame = sf::seconds(1.f / 60.f);
+	const sf::Time timePerFrame = sf::seconds(1.f / 60.f);
 
 	while (window.isOpen())
     {
 		//ProcessEvents();
-		timeSinceLastUpdate += clock.restart();
-		
+		sf::Time elapsedTime = clock.restart();
+		timeSinceLastUpdate += elapsedTime;
 		while(timeSinceLastUpdate > timePerFrame)
 		{
 			timeSinceLastUpdate -= timePerFrame;

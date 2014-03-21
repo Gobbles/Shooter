@@ -21,6 +21,11 @@ protected:
 	sf::RectangleShape offensiveQuad;
 
 	InputHandler inputHandler;
+
+	InputCommands::Input Combos[4][5];
+
+	int CheckCombos();
+
 public:
 	virtual void Move() {};
 	void CheckInput(sf::Event &event);

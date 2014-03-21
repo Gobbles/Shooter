@@ -9,6 +9,7 @@ namespace InputCommands
 {
 enum Input
 {
+	Invalid = -1,
 	Up = 0,
 	Down,
 	Left,
@@ -30,11 +31,18 @@ pauses in input
 class InputHandler
 {
 private:
-	std::queue<InputCommands::Input> inputBuffer;
+	std::deque<InputCommands::Input> inputBuffer;
 
-	void ClearInput(std::queue<InputCommands::Input> &queue);
-public:	
+	void ClearInput(std::deque<InputCommands::Input> &queue);
+
+	float timeSinceLastInput;
+	bool runTimer;
+public:
+	InputHandler();
 	void QueueInput(InputCommands::Input &input);
+	void Update(float timePassed);
+	InputCommands::Input GetInput(int index);
+	int GetSize();
 };
 
 #endif
