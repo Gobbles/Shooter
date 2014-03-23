@@ -41,9 +41,9 @@ void Higgins::BuildCombos()
 
 	Combos[3][0] = InputCommands::Input::Down;
 	Combos[3][1] = InputCommands::Input::Down;
-	Combos[3][2] = InputCommands::Input::Down;
-	Combos[3][3] = InputCommands::Input::Down;
-	Combos[3][4] = InputCommands::Input::Down;
+	Combos[3][2] = InputCommands::Input::Right;
+	Combos[3][3] = InputCommands::Input::Right;
+	Combos[3][4] = InputCommands::Input::Light_Attack;
 }
 
 void Higgins::Draw(sf::RenderWindow& window)

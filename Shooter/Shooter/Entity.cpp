@@ -6,7 +6,7 @@ Entity::Entity(std::string fileLocation)
 }
 
 void Entity::CheckInput(sf::Event &event)
-{
+{ 
 	bool checkCombos = false;
 	InputCommands::Input input;
 	if (event.type == sf::Event::JoystickButtonPressed)
@@ -24,6 +24,7 @@ void Entity::CheckInput(sf::Event &event)
 			std::cout << "new position: " << event.joystickMove.position << std::endl;
 		}
 	}
+
 	if (event.type == sf::Event::KeyPressed)
 	{
 		switch(event.key.code)
@@ -85,43 +86,46 @@ void Entity::CheckInput(sf::Event &event)
 		int combo = CheckCombos();
 		if(combo > -1)
 		{
-			std::cout << "\n";
+			std::cout << "Shoot Combo!: ";
 			std::cout << combo;
+			std::cout << "\n";
 		}
 	}
 }
 
 int Entity::CheckCombos()
 {
+	system("cls");
 	int size = inputHandler.GetSize();
+	int currentKey = 0;
 	if(size > 0)
 	{
 		for(int i = 0; i < 4; ++i) // check all the combos in order
 		{
+			currentKey = size - 1;
 			for(int j = 4; j >= 0; --j)// check all the inputs in the combos in reverse order
 			{
-				int inputToGet = (size - 1) + (j - 4); //(last element) + (-current element offset)
-				if(inputToGet < 0)
+				if(Combos[i][j] == InputCommands::Input::Invalid)//instantly skip to the next input
+					continue;
+
+				if(currentKey < 0)
 				{
-					std::cout << "\n";
-					std::cout << inputToGet;
 					break; // break right away if our input to get is below 0 (the first element)
 				}
-				std::cout << "\nWe Have a proper check";
-				InputCommands::Input inputToCheck = inputHandler.GetInput(inputToGet);
-				if(Combos[i][j] == InputCommands::Input::Invalid)
-					continue;
-				else if (Combos[i][j] == inputToCheck)
-				{
-					if(j == 0) //we have the final input, we just completed a combo
-					{
-						return i;
-					}
-					continue;
-				}
-				else
+
+				std::cout << "\nWe Have a proper check\n";
+
+				InputCommands::Input inputToCheck = inputHandler.GetInput(currentKey);
+
+				if(Combos[i][j] != inputToCheck)
 					break;
+				else if(j == 0) //we have the final input, we just completed a combo
+					return i;
+				else
+					currentKey--;
+
 			}
+			std::cout << "\nNEXT COMBO\n";
 		}
 		return -1;
 	}
