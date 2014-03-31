@@ -28,10 +28,16 @@ protected:
 
 public:
 	virtual void Move() {};
-	void CheckInput(sf::Event &event);
+	bool CheckInput(sf::Event &event);
 	
 	Entity(std::string fileLocation);
 	virtual ~Entity() {}
+
+	//movement booleans
+	bool moveUp;
+	bool moveLeft;
+	bool moveRight;
+	bool moveDown;
 };
 
 #endif

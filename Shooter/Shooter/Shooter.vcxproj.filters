@@ -22,6 +22,24 @@
     <Filter Include="Header Files\interface">
       <UniqueIdentifier>{f179253f-3a29-4728-a470-2e948f50fb1b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Animations">
+      <UniqueIdentifier>{0ed5bb6e-d16f-43a5-a800-3aef38370c8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Animations">
+      <UniqueIdentifier>{5319e128-80f3-43a2-a054-b594a767632e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\AnimationStateMachine">
+      <UniqueIdentifier>{3265acb3-1b69-4da5-8457-34545c60c3d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\AnimationStateMachine\HigginsStates">
+      <UniqueIdentifier>{b0d1f64f-a4af-4dc9-9f86-67542c6618ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AnimationStateMachine">
+      <UniqueIdentifier>{c79c7a8b-20a8-475a-90ed-2a22032dce79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AnimationStateMachine\higginsStates">
+      <UniqueIdentifier>{d256771d-1ede-401b-a7b7-574c4ac27125}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -39,6 +57,15 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files\Characters</Filter>
     </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Source Files\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedSprite.cpp">
+      <Filter>Source Files\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="HigginsOwnedStates.cpp">
+      <Filter>Source Files\AnimationStateMachine\higginsStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -55,6 +82,21 @@
     </ClInclude>
     <ClInclude Include="InputHandler.h">
       <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedSprite.h">
+      <Filter>Header Files\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Header Files\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Header Files\AnimationStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationStateMachine.h">
+      <Filter>Header Files\AnimationStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="HigginsOwnedStates.h">
+      <Filter>Header Files\AnimationStateMachine\HigginsStates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,13 +1,17 @@
 #include "Entity.h"
 
-Entity::Entity(std::string fileLocation)
+Entity::Entity(std::string fileLocation) : moveUp(false),
+	moveLeft(false),
+	moveRight(false),
+	moveDown(false)
 {
 	inputHandler = InputHandler();
 }
 
-void Entity::CheckInput(sf::Event &event)
+bool Entity::CheckInput(sf::Event &event)
 { 
 	bool checkCombos = false;
+	moveUp = moveDown = moveLeft = moveRight = false;
 	InputCommands::Input input;
 	if (event.type == sf::Event::JoystickButtonPressed)
 	{
@@ -24,7 +28,17 @@ void Entity::CheckInput(sf::Event &event)
 			std::cout << "new position: " << event.joystickMove.position << std::endl;
 		}
 	}
+	//movement Inputs
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		moveLeft = true;
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		moveRight = true;
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		moveUp = true;
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		moveDown = true;
 
+	//combo keyInputs
 	if (event.type == sf::Event::KeyPressed)
 	{
 		switch(event.key.code)
@@ -80,17 +94,7 @@ void Entity::CheckInput(sf::Event &event)
 			}
 		}
 	}
-
-	if(checkCombos == true)
-	{
-		int combo = CheckCombos();
-		if(combo > -1)
-		{
-			std::cout << "Shoot Combo!: ";
-			std::cout << combo;
-			std::cout << "\n";
-		}
-	}
+	return checkCombos;
 }
 
 int Entity::CheckCombos()

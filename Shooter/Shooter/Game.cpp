@@ -2,13 +2,15 @@
 
 Game::Game() : window(sf::VideoMode(1024,768),"Josh & Higgins vs The World", sf::Style::Close)
 {
+	window.setKeyRepeatEnabled(false);
 	if(!mapTexture.loadFromFile("Art/background.png"))
 	{ }
 	mapSprite.setTexture(mapTexture);
 
 	Player1 = std::make_shared<Higgins>(Higgins());
-	
-	mDrawables.push_back(Player1);
+	Player1->SetupAnimations();
+
+	mDrawables.emplace_back(Player1);
 }
 
 Game::~Game()
@@ -24,7 +26,6 @@ void Game::Run()
 
 	while (window.isOpen())
     {
-		//ProcessEvents();
 		sf::Time elapsedTime = clock.restart();
 		timeSinceLastUpdate += elapsedTime;
 		while(timeSinceLastUpdate > timePerFrame)
@@ -36,6 +37,7 @@ void Game::Run()
 		Draw();
 	}
 }
+
 void Game::ProcessEvents()
 {
 	sf::Event event;
@@ -44,9 +46,10 @@ void Game::ProcessEvents()
 		CheckEvents(event);
     }
 }
+
 void Game::CheckEvents(sf::Event &event)
 {
-	Player1->CheckInput(event);
+	Player1->ProcessInput(event);
 	//check for our Input Events
 	switch(event.type)
 	{
@@ -64,6 +67,7 @@ void Game::Update(float timePassed)
 	{
 		mDrawables[i]->Update(timePassed);
 	}
+	//Player1->Update(timePassed);
 }
 
 void Game::Draw()
