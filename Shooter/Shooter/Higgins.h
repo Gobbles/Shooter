@@ -3,7 +3,6 @@
 
 #include "Entity.h"
 #include "IDrawable.h"
-#include "AnimatedSprite.h"
 #include "AnimationStateMachine.h"
 #include "HigginsOwnedStates.h"
 
@@ -24,15 +23,6 @@ public:
 
 	//texture and sprite
 	sf::Texture playerTexture;
-	AnimatedSprite animationSprite;
-
-	//currently playing Animation
-	Animation* currentAnimation;
-
-	//animations
-	Animation idleAnimation;
-	Animation runAnimation;
-
 private:
 
 	void BuildCombos();

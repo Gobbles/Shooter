@@ -13,10 +13,6 @@ HigginsIdle* HigginsIdle::Instance()
 void HigginsIdle::Enter(Higgins* higgins)
 {
 	std::cout << "Entering Idle\n";
-	higgins->currentAnimation = &higgins->idleAnimation;
-	higgins->animationSprite.setLooped(true);
-	higgins->animationSprite.setFrameTime(0.2);
-	higgins->animationSprite.play(*higgins->currentAnimation);
 }
 
 void HigginsIdle::Update(Higgins* higgins)
@@ -43,10 +39,6 @@ HigginsMove* HigginsMove::Instance()
 void HigginsMove::Enter(Higgins* higgins)
 {
 	std::cout << "Entering Move\n";
-	higgins->currentAnimation = &higgins->runAnimation;
-	higgins->animationSprite.setLooped(true);
-	higgins->animationSprite.setFrameTime(0.1);
-	higgins->animationSprite.play(*higgins->currentAnimation);
 }
 
 void HigginsMove::Update(Higgins* higgins)

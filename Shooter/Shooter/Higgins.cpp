@@ -26,29 +26,6 @@ Higgins::~Higgins()
 
 void Higgins::SetupAnimations()
 {
-    idleAnimation.setSpriteSheet(playerTexture);
-    idleAnimation.addFrame(sf::IntRect(0, 0, 256, 256));
-    idleAnimation.addFrame(sf::IntRect(256, 0, 256, 256));
-    idleAnimation.addFrame(sf::IntRect(0, 256, 256, 256));
-    idleAnimation.addFrame(sf::IntRect(256, 256, 256, 256));
-
-	runAnimation.setSpriteSheet(playerTexture);
-	runAnimation.addFrame(sf::IntRect(512, 0, 256, 256));
-	runAnimation.addFrame(sf::IntRect(512, 256, 256, 256));
-	runAnimation.addFrame(sf::IntRect(768, 0, 256, 256));
-	runAnimation.addFrame(sf::IntRect(768, 256, 256, 256));
-	runAnimation.addFrame(sf::IntRect(0, 512, 256, 256));
-	runAnimation.addFrame(sf::IntRect(0, 768, 256, 256));
-	runAnimation.addFrame(sf::IntRect(256, 512, 256, 256));
-	runAnimation.addFrame(sf::IntRect(512, 512, 256, 256));
-
-	currentAnimation = &idleAnimation;
-
-	// set up AnimatedSprite
-	animationSprite = AnimatedSprite(0.2f, true, true);
-    animationSprite.setPosition(mPosition);
-	animationSprite.setOrigin(128, 128);
-	animationSprite.play(*currentAnimation);
 	mAnimStateMachine = std::make_shared<AnimationStateMachine<Higgins> >(AnimationStateMachine<Higgins>(this));
 	mAnimStateMachine->SetCurrentState(HigginsIdle::Instance());
 }
@@ -99,9 +76,7 @@ void Higgins::Draw(sf::RenderWindow& window)
 	//set quad positions
 	defensiveQuad.setPosition(mPosition.x, mPosition.y);
 	baseQuad.setPosition(mPosition.x, mPosition.y + 105);
-	animationSprite.setPosition(mPosition.x, mPosition.y);
 
-	window.draw(animationSprite);
 	window.draw(baseQuad);
 	window.draw(defensiveQuad);
 }
@@ -110,7 +85,6 @@ void Higgins::Update(float timePassed)
 {
 	inputHandler.Update(timePassed);
 	mAnimStateMachine->Update();
-	animationSprite.Update(timePassed);
 }
 
 void Higgins::SetAnimIdle()

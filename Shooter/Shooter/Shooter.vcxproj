@@ -44,7 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\SFML-2.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\SFML-2.1\include;./include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -60,7 +60,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\SFML-2.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\SFML-2.1\include;./include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -72,25 +72,68 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AnimatedSprite.cpp" />
-    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Higgins.cpp" />
     <ClCompile Include="HigginsOwnedStates.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\spine\Animation.c" />
+    <ClCompile Include="src\spine\AnimationState.c" />
+    <ClCompile Include="src\spine\AnimationStateData.c" />
+    <ClCompile Include="src\spine\Atlas.c" />
+    <ClCompile Include="src\spine\AtlasAttachmentLoader.c" />
+    <ClCompile Include="src\spine\Attachment.c" />
+    <ClCompile Include="src\spine\AttachmentLoader.c" />
+    <ClCompile Include="src\spine\Bone.c" />
+    <ClCompile Include="src\spine\BoneData.c" />
+    <ClCompile Include="src\spine\BoundingBoxAttachment.c" />
+    <ClCompile Include="src\spine\Event.c" />
+    <ClCompile Include="src\spine\EventData.c" />
+    <ClCompile Include="src\spine\extension.c" />
+    <ClCompile Include="src\spine\Json.c" />
+    <ClCompile Include="src\spine\RegionAttachment.c" />
+    <ClCompile Include="src\spine\Skeleton.c" />
+    <ClCompile Include="src\spine\SkeletonBounds.c" />
+    <ClCompile Include="src\spine\SkeletonData.c" />
+    <ClCompile Include="src\spine\SkeletonJson.c" />
+    <ClCompile Include="src\spine\Skin.c" />
+    <ClCompile Include="src\spine\Slot.c" />
+    <ClCompile Include="src\spine\SlotData.c" />
+    <ClCompile Include="src\spine\spine-sfml.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AnimatedSprite.h" />
-    <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationStateMachine.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Higgins.h" />
     <ClInclude Include="HigginsOwnedStates.h" />
     <ClInclude Include="IDrawable.h" />
+    <ClInclude Include="include\spine\Animation.h" />
+    <ClInclude Include="include\spine\AnimationState.h" />
+    <ClInclude Include="include\spine\AnimationStateData.h" />
+    <ClInclude Include="include\spine\Atlas.h" />
+    <ClInclude Include="include\spine\AtlasAttachmentLoader.h" />
+    <ClInclude Include="include\spine\Attachment.h" />
+    <ClInclude Include="include\spine\AttachmentLoader.h" />
+    <ClInclude Include="include\spine\Bone.h" />
+    <ClInclude Include="include\spine\BoneData.h" />
+    <ClInclude Include="include\spine\BoundingBoxAttachment.h" />
+    <ClInclude Include="include\spine\Event.h" />
+    <ClInclude Include="include\spine\EventData.h" />
+    <ClInclude Include="include\spine\extension.h" />
+    <ClInclude Include="include\spine\RegionAttachment.h" />
+    <ClInclude Include="include\spine\Skeleton.h" />
+    <ClInclude Include="include\spine\SkeletonBounds.h" />
+    <ClInclude Include="include\spine\SkeletonData.h" />
+    <ClInclude Include="include\spine\SkeletonJson.h" />
+    <ClInclude Include="include\spine\Skin.h" />
+    <ClInclude Include="include\spine\Slot.h" />
+    <ClInclude Include="include\spine\SlotData.h" />
+    <ClInclude Include="include\spine\spine.h" />
     <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="src\spine\Json.h" />
+    <ClInclude Include="src\spine\spine-sfml.h" />
     <ClInclude Include="State.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
