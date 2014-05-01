@@ -3,16 +3,13 @@
 
 #include <iostream>
 #include <SFML\Graphics.hpp>
+#include <spine\spine-sfml.h>
 #include "InputHandler.h"
-
 
 class Entity
 {
 protected:
 	//members
-	sf::Texture mTexture;
-	sf::Sprite mSprite;
-
 	sf::Vector2f mVelocity;
 	sf::Vector2f mPosition;
 
@@ -26,12 +23,27 @@ protected:
 
 	int CheckCombos();
 
+	//Spine information
+	Atlas* atlas;
+	SkeletonData *skeletonData;
+
+	spine::SkeletonDrawable* drawable;
+	Skeleton* skeleton;
+
+	//Animations
+	Animation* walkAnimation;
+	Animation* runAnimation;
+	Animation* idleAnimation;
+
+	//State data
+	AnimationStateData* stateData;
+
 public:
 	virtual void Move() {};
 	bool CheckInput(sf::Event &event);
 	
-	Entity(std::string fileLocation);
-	virtual ~Entity() {}
+	Entity();
+	virtual ~Entity();
 
 	//movement booleans
 	bool moveUp;

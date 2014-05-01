@@ -38,6 +38,7 @@ HigginsMove* HigginsMove::Instance()
 
 void HigginsMove::Enter(Higgins* higgins)
 {
+
 	std::cout << "Entering Move\n";
 }
 

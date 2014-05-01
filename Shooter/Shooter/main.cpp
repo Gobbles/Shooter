@@ -1,4 +1,4 @@
-/*//DEBUG CODE
+//DEBUG CODE
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
@@ -18,7 +18,8 @@ int main()
 	game->Run();
 
 	return EXIT_SUCCESS;
-}*/
+}
+
 /******************************************************************************
  * Spine Runtimes Software License
  * Version 2
@@ -46,6 +47,7 @@ int main()
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
+/*
 #define _CRT_SECURE_NO_DEPRECATE
 #include <iostream>
 #include <string.h>
@@ -159,7 +161,7 @@ void spineboy ()
 
 void goblins () 
 {
-// Load atlas, skeleton, and animations.
+	// Load atlas, skeleton, and animations.
 	Atlas* atlas = Atlas_readAtlasFile("Art/Goblin/goblins.atlas");
 	SkeletonJson* json = SkeletonJson_create(atlas);
 	json->scale = 0.5;
@@ -207,6 +209,7 @@ void goblins ()
 
 int main () 
 {
-	spineboy();
+	//spineboy();
 	goblins();
 }
+*/

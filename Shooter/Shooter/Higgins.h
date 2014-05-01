@@ -20,12 +20,10 @@ public:
 
 	void SetAnimIdle();
 	void SetAnimRun();
-
-	//texture and sprite
-	sf::Texture playerTexture;
 private:
 
 	void BuildCombos();
+	void BuildSpineCharacter();
 
 	//animation State Machine
 	std::shared_ptr<AnimationStateMachine<Higgins> > mAnimStateMachine;

@@ -1,11 +1,16 @@
 #include "Entity.h"
 
-Entity::Entity(std::string fileLocation) : moveUp(false),
+Entity::Entity() : moveUp(false),
 	moveLeft(false),
 	moveRight(false),
 	moveDown(false)
 {
 	inputHandler = InputHandler();
+}
+
+Entity::~Entity()
+{
+	
 }
 
 bool Entity::CheckInput(sf::Event &event)

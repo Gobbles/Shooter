@@ -7,10 +7,9 @@ Game::Game() : window(sf::VideoMode(1024,768),"Josh & Higgins vs The World", sf:
 	{ }
 	mapSprite.setTexture(mapTexture);
 
-	Player1 = std::make_shared<Higgins>(Higgins());
-	Player1->SetupAnimations();
+	Player1 = std::shared_ptr<Higgins>(new Higgins());
 
-	mDrawables.emplace_back(Player1);
+	mDrawables.push_back(Player1);
 }
 
 Game::~Game()
@@ -79,5 +78,6 @@ void Game::Draw()
 	{
 		mDrawables[i]->Draw(window);
 	}
+	//Player1->Draw(window);
 	window.display();
 }
