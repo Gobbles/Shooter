@@ -24,7 +24,7 @@ private:
 	sf::Sprite mapSprite;
 
 	//Higgins Player1;
-	std::vector<std::shared_ptr<IDrawable> > mDrawables;
+	std::vector<std::shared_ptr<Entity> > mGameEntities;
 	std::shared_ptr<Higgins> Player1;
 };
 

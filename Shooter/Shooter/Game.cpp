@@ -9,7 +9,7 @@ Game::Game() : window(sf::VideoMode(1024,768),"Josh & Higgins vs The World", sf:
 
 	Player1 = std::shared_ptr<Higgins>(new Higgins());
 
-	mDrawables.push_back(Player1);
+	mGameEntities.push_back(Player1);
 }
 
 Game::~Game()
@@ -62,9 +62,14 @@ void Game::CheckEvents(sf::Event &event)
 void Game::Update(float timePassed)
 {
 	//std::cout << "Updating\n";
-	for(int i = 0; i < mDrawables.size(); ++i)
+	for(int i = 0; i < mGameEntities.size(); ++i)
 	{
-		mDrawables[i]->Update(timePassed);
+		//mDrawables[i]->Update(timePassed);
+		IUpdateable* updateable = dynamic_cast<IUpdateable*>(mGameEntities[i].get());
+		if(updateable != nullptr)
+		{
+			updateable->Update(timePassed);
+		}
 	}
 	//Player1->Update(timePassed);
 }
@@ -74,9 +79,13 @@ void Game::Draw()
 	//std::cout << "Drawing\n";
 	window.clear();
 	window.draw(mapSprite);
-	for(int i = 0; i < mDrawables.size(); ++i)
+	for(int i = 0; i < mGameEntities.size(); ++i)
 	{
-		mDrawables[i]->Draw(window);
+		IDrawable* drawable = dynamic_cast<IDrawable*>(mGameEntities[i].get());
+		if(drawable != nullptr)
+		{
+			drawable->Draw(window);
+		}
 	}
 	//Player1->Draw(window);
 	window.display();

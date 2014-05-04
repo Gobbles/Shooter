@@ -55,7 +55,7 @@ void Higgins::BuildSpineCharacter()
 	AnimationStateData_setMixByName(stateData, "Idle", "Run", 0.2f);
 
 	drawable = new spine::SkeletonDrawable(skeletonData, stateData);
-	drawable->timeScale = 1;
+	drawable->timeScale = 0.5;
 
 	skeleton = drawable->skeleton;
 	skeleton->flipX = false;

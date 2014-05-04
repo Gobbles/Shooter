@@ -3,10 +3,11 @@
 
 #include "Entity.h"
 #include "IDrawable.h"
+#include "IUpdateable.h"
 #include "AnimationStateMachine.h"
 #include "HigginsOwnedStates.h"
 
-class Higgins : public Entity, public IDrawable
+class Higgins : public Entity, public IDrawable, public IUpdateable
 {
 public:
 	Higgins();

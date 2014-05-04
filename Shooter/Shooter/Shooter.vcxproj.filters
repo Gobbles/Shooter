@@ -227,5 +227,8 @@
     <ClInclude Include="src\spine\spine-sfml.h">
       <Filter>Header Files\spine</Filter>
     </ClInclude>
+    <ClInclude Include="IUpdateable.h">
+      <Filter>Header Files\interface</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

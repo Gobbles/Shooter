@@ -132,6 +132,7 @@
     <ClInclude Include="include\spine\SlotData.h" />
     <ClInclude Include="include\spine\spine.h" />
     <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="IUpdateable.h" />
     <ClInclude Include="src\spine\Json.h" />
     <ClInclude Include="src\spine\spine-sfml.h" />
     <ClInclude Include="State.h" />
