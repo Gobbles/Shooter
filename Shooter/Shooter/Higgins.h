@@ -2,18 +2,17 @@
 #define HIGGINS_H
 
 #include "Entity.h"
-#include "IDrawable.h"
-#include "IUpdateable.h"
+
 #include "AnimationStateMachine.h"
 #include "HigginsOwnedStates.h"
 
-class Higgins : public Entity, public IDrawable, public IUpdateable
+class Higgins : public Entity
 {
 public:
 	Higgins();
 	~Higgins();
 
-	virtual void Update(float timePassed);
+	virtual void Update(const float timePassed);
 	virtual void Draw(sf::RenderWindow& window);
 
 	void SetupAnimations();

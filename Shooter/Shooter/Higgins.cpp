@@ -38,7 +38,7 @@ void Higgins::BuildSpineCharacter()
 	// Load atlas, skeleton, and animations.
 	atlas = Atlas_readAtlasFile("Art/Higgins/Higgins.atlas");
 	SkeletonJson* json = SkeletonJson_create(atlas);
-	json->scale = 0.22;
+	json->scale = 0.18f;
 	skeletonData = SkeletonJson_readSkeletonDataFile(json, "Art/Higgins/Higgins.json");
 	walkAnimation = SkeletonData_findAnimation(skeletonData, "Walk");
 	runAnimation = SkeletonData_findAnimation(skeletonData, "Run");
@@ -55,7 +55,7 @@ void Higgins::BuildSpineCharacter()
 	AnimationStateData_setMixByName(stateData, "Idle", "Run", 0.2f);
 
 	drawable = new spine::SkeletonDrawable(skeletonData, stateData);
-	drawable->timeScale = 0.5;
+	drawable->timeScale = 1;
 
 	skeleton = drawable->skeleton;
 	skeleton->flipX = false;
@@ -128,7 +128,7 @@ void Higgins::Draw(sf::RenderWindow& window)
 	window.draw(defensiveQuad);
 }
 
-void Higgins::Update(float timePassed)
+void Higgins::Update(const float timePassed)
 {
 	inputHandler.Update(timePassed);
 	drawable->update(timePassed);

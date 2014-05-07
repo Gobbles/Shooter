@@ -5,8 +5,10 @@
 #include <SFML\Graphics.hpp>
 #include <spine\spine-sfml.h>
 #include "InputHandler.h"
+#include "IDrawable.h"
+#include "IUpdateable.h"
 
-class Entity
+class Entity : public IDrawable, public IUpdateable
 {
 protected:
 	//members
@@ -22,6 +24,10 @@ protected:
 	InputCommands::Input Combos[4][5];
 
 	int CheckCombos();
+
+	//Interfaces
+	virtual void Update(const float timePassed) {}
+	virtual void Draw(sf::RenderWindow& window) {}
 
 	//Spine information
 	Atlas* atlas;
