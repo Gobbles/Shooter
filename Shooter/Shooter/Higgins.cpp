@@ -3,6 +3,7 @@
 Higgins::Higgins() : Entity()
 {
 	mPosition = sf::Vector2f(400,400);
+	mVelocity = sf::Vector2f(0,0);
 
 	baseQuad = sf::RectangleShape(sf::Vector2f(100,45));
 	baseQuad.setOrigin(baseQuad.getSize().x/2,baseQuad.getSize().y/2);
@@ -17,6 +18,8 @@ Higgins::Higgins() : Entity()
 
 	mAnimStateMachine = std::make_shared<AnimationStateMachine<Higgins> >(AnimationStateMachine<Higgins>(this));
 	mAnimStateMachine->SetCurrentState(HigginsIdle::Instance());
+
+	name = "Higgins";
 }
 
 Higgins::~Higgins()
@@ -36,7 +39,7 @@ void Higgins::SetupAnimations()
 void Higgins::BuildSpineCharacter()
 {
 	// Load atlas, skeleton, and animations.
-	atlas = Atlas_readAtlasFile("Art/Higgins/Higgins.atlas");
+	atlas = Atlas_createFromFile("Art/Higgins/Higgins.atlas", 0);
 	SkeletonJson* json = SkeletonJson_create(atlas);
 	json->scale = 0.18f;
 	skeletonData = SkeletonJson_readSkeletonDataFile(json, "Art/Higgins/Higgins.json");
@@ -47,6 +50,7 @@ void Higgins::BuildSpineCharacter()
 
 	// Configure mixing.
 	stateData = AnimationStateData_create(skeletonData);
+	
 	//mix between walk and idle
 	AnimationStateData_setMixByName(stateData, "Idle", "Walk", 0.2f);
 	AnimationStateData_setMixByName(stateData, "Walk", "Idle", 0.2f);
@@ -56,13 +60,43 @@ void Higgins::BuildSpineCharacter()
 
 	drawable = new spine::SkeletonDrawable(skeletonData, stateData);
 	drawable->timeScale = 1;
+	drawable->state->rendererObject = this;
 
 	skeleton = drawable->skeleton;
 	skeleton->flipX = false;
 	skeleton->flipY = false;
+
+	//add listener
+	//drawable->state->listener = std::mem_fn(&Higgins::AnimationResponse);
+	drawable->state->listener = [](AnimationState* state, int trackIndex, EventType type, Event* event, int loopCount)
+	{
+		const Higgins* higgins = (const Higgins*) state->rendererObject;
+		std::cout << higgins->name << "FUCK YEH! ";
+		TrackEntry* entry = AnimationState_getCurrent(state, trackIndex);
+		const char* animationName = (entry && entry->animation) ? entry->animation->name : 0;
+
+		switch (type) 
+		{
+			case ANIMATION_START:
+				printf("%d start: %s\n", trackIndex, animationName);
+				break;
+			case ANIMATION_END:
+				printf("%d end: %s\n", trackIndex, animationName);
+				break;
+			case ANIMATION_COMPLETE:
+				printf("%d complete: %s, %d\n", trackIndex, animationName, loopCount);
+				break;
+			case ANIMATION_EVENT:
+				printf("%d event: %s, %s: %d, %f, %s\n", trackIndex, animationName, event->data->name, event->intValue, event->floatValue,
+						event->stringValue);
+				break;
+		}
+		fflush(stdout);
+	};
+
 	//Skeleton_setSkinByName(skeleton, "HigginsMain");
 	//Skeleton_setSlotsToSetupPose(skeleton);
-//	Skeleton_setAttachment(skeleton, "left hand item", "dagger");
+	//Skeleton_setAttachment(skeleton, "left hand item", "dagger");
 
 	skeleton->x = 0;
 	skeleton->y = 0;
@@ -130,6 +164,51 @@ void Higgins::Draw(sf::RenderWindow& window)
 
 void Higgins::Update(const float timePassed)
 {
+	if(moveDown)
+		mVelocity.y = 300;
+	else if(moveUp)
+		mVelocity.y = -300;
+	else
+		mVelocity.y = 0;
+
+	if(moveRight)
+	{
+		mVelocity.x = 300;
+		skeleton->flipX = false;
+	}
+	else if(moveLeft)
+	{
+		mVelocity.x = -300;
+		skeleton->flipX = true;
+	}
+	else
+		mVelocity.x = 0;
+
+	if(defend && !isBlocking && !isDodging)
+	{
+		std::cout << "Speed X: " << mVelocity.x;
+		std::cout << " Speed Y: " << mVelocity.y;
+		if(mVelocity.x != 0 || mVelocity.y != 0)
+		{
+			//dodgeroll
+			std::cout << "DodgeRoll";
+			if(moveLeft)
+				mVelocity.x = -600;
+			else if(moveRight)
+				mVelocity.x = 600;
+			AnimationState_setAnimationByName(drawable->state, 0, "DodgeRoll", false);
+		}
+		else
+		{
+			std::cout << "Block";
+			isBlocking = true;
+			//block
+		}
+	}
+
+	mPosition.x += mVelocity.x * timePassed;
+	mPosition.y += mVelocity.y * timePassed;
+
 	inputHandler.Update(timePassed);
 	drawable->update(timePassed);
 	mAnimStateMachine->Update();
@@ -143,6 +222,33 @@ void Higgins::SetAnimIdle()
 
 void Higgins::SetAnimRun()
 {
-	mAnimStateMachine->ChangeState(HigginsMove::Instance());
-	AnimationState_setAnimationByName(drawable->state, 0, "Run", true);
+	if(!mAnimStateMachine->isInState(HigginsMove::Instance()))
+	{
+		mAnimStateMachine->ChangeState(HigginsMove::Instance());
+		AnimationState_setAnimationByName(drawable->state, 0, "Run", true);
+	}
+}
+
+void Higgins::AnimationResponse(AnimationState* state, int trackIndex, EventType type, Event* event, int loopCount) 
+{
+	TrackEntry* entry = AnimationState_getCurrent(state, trackIndex);
+	const char* animationName = (entry && entry->animation) ? entry->animation->name : 0;
+
+	switch (type) 
+	{
+		case ANIMATION_START:
+			printf("%d start: %s\n", trackIndex, animationName);
+			break;
+		case ANIMATION_END:
+			printf("%d end: %s\n", trackIndex, animationName);
+			break;
+		case ANIMATION_COMPLETE:
+			printf("%d complete: %s, %d\n", trackIndex, animationName, loopCount);
+			break;
+		case ANIMATION_EVENT:
+			printf("%d event: %s, %s: %d, %f, %s\n", trackIndex, animationName, event->data->name, event->intValue, event->floatValue,
+					event->stringValue);
+			break;
+	}
+	fflush(stdout);
 }

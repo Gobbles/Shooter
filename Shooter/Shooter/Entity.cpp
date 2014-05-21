@@ -3,7 +3,10 @@
 Entity::Entity() : moveUp(false),
 	moveLeft(false),
 	moveRight(false),
-	moveDown(false)
+	moveDown(false),
+	defend(false),
+	isBlocking(false),
+	isDodging(false)
 {
 	inputHandler = InputHandler();
 }
@@ -16,7 +19,7 @@ Entity::~Entity()
 bool Entity::CheckInput(sf::Event &event)
 { 
 	bool checkCombos = false;
-	moveUp = moveDown = moveLeft = moveRight = false;
+	moveUp = moveDown = moveLeft = moveRight = defend = false;
 	InputCommands::Input input;
 	if (event.type == sf::Event::JoystickButtonPressed)
 	{
@@ -42,9 +45,11 @@ bool Entity::CheckInput(sf::Event &event)
 		moveUp = true;
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		moveDown = true;
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		defend = true;
 
 	//combo keyInputs
-	if (event.type == sf::Event::KeyPressed)
+	/*if (event.type == sf::Event::KeyPressed)
 	{
 		switch(event.key.code)
 		{
@@ -98,7 +103,7 @@ bool Entity::CheckInput(sf::Event &event)
 				break;
 			}
 		}
-	}
+	}*/
 	return checkCombos;
 }
 

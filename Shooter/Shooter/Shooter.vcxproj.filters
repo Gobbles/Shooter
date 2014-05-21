@@ -40,6 +40,12 @@
     <Filter Include="Source Files\spine">
       <UniqueIdentifier>{f2b48f4c-b3d6-4b7b-897d-c72c155b07fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Effects">
+      <UniqueIdentifier>{4212ddf8-d7b7-4e02-81d0-a44f29c1bb88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Effects">
+      <UniqueIdentifier>{ed570f8a-c333-4871-a9d4-fcaae9b96843}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -127,6 +133,15 @@
       <Filter>Source Files\spine</Filter>
     </ClCompile>
     <ClCompile Include="src\spine\spine-sfml.cpp">
+      <Filter>Source Files\spine</Filter>
+    </ClCompile>
+    <ClCompile Include="ShotLevelOne.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\spine\MeshAttachment.c">
+      <Filter>Source Files\spine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\spine\SkinnedMeshAttachment.c">
       <Filter>Source Files\spine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -224,11 +239,23 @@
     <ClInclude Include="src\spine\Json.h">
       <Filter>Header Files\spine</Filter>
     </ClInclude>
-    <ClInclude Include="src\spine\spine-sfml.h">
-      <Filter>Header Files\spine</Filter>
-    </ClInclude>
     <ClInclude Include="IUpdateable.h">
       <Filter>Header Files\interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Header Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="ShotLevelOne.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\spine\spine-sfml.h">
+      <Filter>Header Files\spine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\spine\MeshAttachment.h">
+      <Filter>Header Files\spine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\spine\SkinnedMeshAttachment.h">
+      <Filter>Header Files\spine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

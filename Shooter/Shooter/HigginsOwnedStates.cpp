@@ -17,7 +17,7 @@ void HigginsIdle::Enter(Higgins* higgins)
 
 void HigginsIdle::Update(Higgins* higgins)
 {
-	if(higgins->moveLeft || higgins->moveRight)
+	if(higgins->moveLeft || higgins->moveRight || higgins->moveUp || higgins->moveDown)
 	{
 		higgins->SetAnimRun();
 	}
@@ -44,10 +44,12 @@ void HigginsMove::Enter(Higgins* higgins)
 
 void HigginsMove::Update(Higgins* higgins)
 {
-	if(!higgins->moveLeft && !higgins->moveRight)
+	if(!higgins->moveLeft && !higgins->moveRight && !higgins->moveUp && !higgins->moveDown)
 	{
 		higgins->SetAnimIdle();
 	}
+	//if our last time is greater then our endtime
+	//if(higgins->drawable->state->tracks[0]->lastTime > higgins->drawable->state->tracks[0]->endTime)
 }
 
 void HigginsMove::Exit(Higgins* higgins)

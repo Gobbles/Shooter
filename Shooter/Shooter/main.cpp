@@ -85,7 +85,7 @@ void callback (AnimationState* state, int trackIndex, EventType type, Event* eve
 void spineboy () 
 {
 	// Load atlas, skeleton, and animations.
-	Atlas* atlas = Atlas_readAtlasFile("Art/Spineboy/spineboy.atlas");
+	Atlas* atlas = Atlas_createFromFile("Art/Spineboy/spineboy.atlas",0);
 	SkeletonJson* json = SkeletonJson_create(atlas);
 	SkeletonData *skeletonData = SkeletonJson_readSkeletonDataFile(json, "Art/Spineboy/spineboy.json");
 	if (!skeletonData) {
@@ -162,9 +162,9 @@ void spineboy ()
 void goblins () 
 {
 	// Load atlas, skeleton, and animations.
-	Atlas* atlas = Atlas_readAtlasFile("Art/Goblin/goblins.atlas");
+	Atlas* atlas = Atlas_createFromFile("Art/Goblin/goblins.atlas", 0);
 	SkeletonJson* json = SkeletonJson_create(atlas);
-	json->scale = 0.5;
+	json->scale = 1.0;
 	SkeletonData *skeletonData = SkeletonJson_readSkeletonDataFile(json, "Art/Goblin/goblins.json");
 	Animation* walkAnimation = SkeletonData_findAnimation(skeletonData, "walk");
 	SkeletonJson_dispose(json);
@@ -209,7 +209,7 @@ void goblins ()
 
 int main () 
 {
-	//spineboy();
+	spineboy();
 	goblins();
 }
 */

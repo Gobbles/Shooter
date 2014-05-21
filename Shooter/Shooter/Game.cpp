@@ -10,6 +10,8 @@ Game::Game() : window(sf::VideoMode(1024,768),"Josh & Higgins vs The World", sf:
 	Player1 = std::shared_ptr<Higgins>(new Higgins());
 
 	mGameEntities.push_back(Player1);
+
+	mShot = std::unique_ptr<ShotLevelOne>(new ShotLevelOne(sf::Vector2f(Player1->mPosition.x + 40, Player1->mPosition.y - 100),false));
 }
 
 Game::~Game()
@@ -71,6 +73,7 @@ void Game::Update(float timePassed)
 			updateable->Update(timePassed);
 		}
 	}
+	mShot->Update(timePassed);
 	//Player1->Update(timePassed);
 }
 
@@ -87,6 +90,7 @@ void Game::Draw()
 			drawable->Draw(window);
 		}
 	}
+	mShot->Draw(window);
 	//Player1->Draw(window);
 	window.display();
 }

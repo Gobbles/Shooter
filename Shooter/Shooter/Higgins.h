@@ -5,6 +5,7 @@
 
 #include "AnimationStateMachine.h"
 #include "HigginsOwnedStates.h"
+#include <functional>
 
 class Higgins : public Entity
 {
@@ -20,6 +21,8 @@ public:
 
 	void SetAnimIdle();
 	void SetAnimRun();
+
+	std::string name;
 private:
 
 	void BuildCombos();
@@ -27,6 +30,7 @@ private:
 
 	//animation State Machine
 	std::shared_ptr<AnimationStateMachine<Higgins> > mAnimStateMachine;
+	void AnimationResponse(AnimationState* state, int trackIndex, EventType type, Event* event, int loopCount);
 };
 
 #endif

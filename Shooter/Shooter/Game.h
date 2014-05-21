@@ -5,6 +5,7 @@
 #include <SFML\Graphics.hpp>
 #include <iostream>
 #include "Higgins.h"
+#include "ShotLevelOne.h"
 
 class Game
 {
@@ -26,6 +27,9 @@ private:
 	//Higgins Player1;
 	std::vector<std::shared_ptr<Entity> > mGameEntities;
 	std::shared_ptr<Higgins> Player1;
+
+	//test shot
+	std::unique_ptr<ShotLevelOne> mShot;
 };
 
 #endif

@@ -13,8 +13,7 @@ class Entity : public IDrawable, public IUpdateable
 protected:
 	//members
 	sf::Vector2f mVelocity;
-	sf::Vector2f mPosition;
-
+	
 	sf::RectangleShape baseQuad;
 	sf::RectangleShape defensiveQuad;
 	sf::RectangleShape offensiveQuad;
@@ -45,6 +44,8 @@ protected:
 	AnimationStateData* stateData;
 
 public:
+	sf::Vector2f mPosition;
+
 	virtual void Move() {};
 	bool CheckInput(sf::Event &event);
 	
@@ -56,6 +57,13 @@ public:
 	bool moveLeft;
 	bool moveRight;
 	bool moveDown;
+
+	//defence
+	bool defend;
+
+	//control States
+	bool isDodging;
+	bool isBlocking;
 };
 
 #endif
