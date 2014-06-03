@@ -76,6 +76,7 @@ SkeletonDrawable::SkeletonDrawable (SkeletonData* skeletonData, AnimationStateDa
 
 SkeletonDrawable::~SkeletonDrawable () {
 	delete vertexArray;
+	FREE(worldVertices);
 	AnimationState_dispose(state);
 	Skeleton_dispose(skeleton);
 }

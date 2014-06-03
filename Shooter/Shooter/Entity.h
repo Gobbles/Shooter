@@ -35,11 +35,6 @@ protected:
 	spine::SkeletonDrawable* drawable;
 	Skeleton* skeleton;
 
-	//Animations
-	Animation* walkAnimation;
-	Animation* runAnimation;
-	Animation* idleAnimation;
-
 	//State data
 	AnimationStateData* stateData;
 
@@ -57,6 +52,10 @@ public:
 	bool moveLeft;
 	bool moveRight;
 	bool moveDown;
+
+	//attack
+	bool attack;
+	bool isAttacking;
 
 	//defence
 	bool defend;

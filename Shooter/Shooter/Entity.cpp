@@ -6,7 +6,9 @@ Entity::Entity() : moveUp(false),
 	moveDown(false),
 	defend(false),
 	isBlocking(false),
-	isDodging(false)
+	isDodging(false),
+	attack(false),
+	isAttacking(false)
 {
 	inputHandler = InputHandler();
 }
@@ -49,10 +51,23 @@ bool Entity::CheckInput(sf::Event &event)
 		defend = true;
 
 	//combo keyInputs
-	/*if (event.type == sf::Event::KeyPressed)
+	if (event.type == sf::Event::KeyPressed)
 	{
 		switch(event.key.code)
 		{
+			case sf::Keyboard::Q:
+			{
+				std::cout <<"Attacking";
+				attack = true;
+				break;
+			}
+			/*case sf::Keyboard::Q:
+			{
+				input = InputCommands::Input::Light_Attack;
+				inputHandler.QueueInput(input);
+				checkCombos = true;
+				break;
+			}
 			case sf::Keyboard::A:
 			{
 				input = InputCommands::Input::Left;
@@ -88,22 +103,15 @@ bool Entity::CheckInput(sf::Event &event)
 				checkCombos = true;
 				break;
 			}
-			case sf::Keyboard::Q:
-			{
-				input = InputCommands::Input::Light_Attack;
-				inputHandler.QueueInput(input);
-				checkCombos = true;
-				break;
-			}
 			case sf::Keyboard::E:
 			{
 				input = InputCommands::Input::Heavy_Attack;
 				inputHandler.QueueInput(input);
 				checkCombos = true;
 				break;
-			}
+			}*/
 		}
-	}*/
+	}
 	return checkCombos;
 }
 
