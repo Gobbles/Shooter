@@ -1,173 +1,187 @@
 
 Higgins.png
-size: 508,62
+size: 254,126
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 Hippro
   rotate: true
-  xy: 223, 27
+  xy: 180, 91
   size: 35, 47
   orig: 35, 47
   offset: 0, 0
   index: -1
 Torsopro
-  rotate: true
-  xy: 272, 27
+  rotate: false
+  xy: 70, 29
   size: 35, 44
   orig: 36, 45
   offset: 0, 1
   index: -1
 head
   rotate: true
-  xy: 2, 6
+  xy: 2, 70
   size: 56, 66
   orig: 56, 66
   offset: 0, 0
   index: -1
 headpro
   rotate: true
-  xy: 70, 11
+  xy: 70, 75
   size: 51, 63
   orig: 58, 63
   offset: 3, 0
   index: -1
 hip
-  rotate: false
-  xy: 180, 16
+  rotate: true
+  xy: 135, 36
   size: 41, 46
   orig: 41, 46
   offset: 0, 0
   index: -1
 lfoot
-  rotate: false
-  xy: 396, 46
+  rotate: true
+  xy: 107, 2
   size: 39, 16
   orig: 39, 16
   offset: 0, 0
   index: -1
 lfoot2
   rotate: false
-  xy: 396, 28
+  xy: 214, 25
   size: 37, 16
   orig: 37, 16
   offset: 0, 0
   index: -1
 rfoot3
   rotate: false
-  xy: 396, 28
+  xy: 214, 25
   size: 37, 16
   orig: 37, 16
   offset: 0, 0
   index: -1
 lfoot3
-  rotate: false
-  xy: 389, 2
+  rotate: true
+  xy: 107, 43
   size: 30, 24
   orig: 30, 24
   offset: 0, 0
   index: -1
 rfoot4
-  rotate: false
-  xy: 389, 2
+  rotate: true
+  xy: 107, 43
   size: 30, 24
   orig: 30, 24
   offset: 0, 0
   index: -1
 lhand
   rotate: false
-  xy: 300, 5
+  xy: 163, 14
   size: 16, 20
   orig: 16, 20
   offset: 0, 0
   index: -1
 llowarm
   rotate: true
-  xy: 421, 4
+  xy: 2, 5
   size: 22, 31
   orig: 22, 32
   offset: 0, 0
   index: -1
 llowleg
-  rotate: true
-  xy: 359, 33
+  rotate: false
+  xy: 35, 33
   size: 29, 35
   orig: 29, 35
   offset: 0, 0
   index: -1
 luparm
   rotate: true
-  xy: 473, 20
+  xy: 181, 5
   size: 18, 35
   orig: 20, 35
   offset: 1, 0
   index: -1
 lupleg
-  rotate: true
-  xy: 223, 2
+  rotate: false
+  xy: 229, 91
   size: 23, 35
   orig: 23, 35
   offset: 0, 0
   index: -1
 neck
-  rotate: true
-  xy: 478, 40
+  rotate: false
+  xy: 214, 43
   size: 22, 28
   orig: 22, 28
   offset: 0, 0
   index: -1
 rfoot
-  rotate: false
-  xy: 454, 3
+  rotate: true
+  xy: 238, 46
   size: 25, 15
   orig: 25, 15
   offset: 0, 0
   index: -1
 rfoot2
   rotate: false
-  xy: 437, 46
+  xy: 213, 73
   size: 39, 16
   orig: 39, 16
   offset: 0, 0
   index: -1
 rhand
-  rotate: false
-  xy: 359, 2
+  rotate: true
+  xy: 183, 28
   size: 28, 29
   orig: 28, 29
   offset: 0, 0
   index: -1
+rhand2
+  rotate: true
+  xy: 35, 2
+  size: 29, 30
+  orig: 29, 31
+  offset: 0, 1
+  index: -1
+rhand3
+  rotate: false
+  xy: 183, 58
+  size: 28, 31
+  orig: 28, 31
+  offset: 0, 0
+  index: -1
 rlowarm
   rotate: true
-  xy: 435, 28
+  xy: 218, 7
   size: 16, 36
   orig: 16, 36
   offset: 0, 0
   index: -1
 rlowleg
-  rotate: true
-  xy: 318, 31
+  rotate: false
+  xy: 2, 29
   size: 31, 39
   orig: 31, 39
   offset: 0, 0
   index: -1
 ruparm
   rotate: true
-  xy: 260, 5
+  xy: 67, 7
   size: 20, 38
   orig: 21, 40
   offset: 0, 0
   index: -1
 rupleg
   rotate: true
-  xy: 318, 2
+  xy: 125, 7
   size: 27, 36
   orig: 27, 36
   offset: 0, 0
   index: -1
 torso
   rotate: false
-  xy: 135, 15
+  xy: 135, 79
   size: 43, 47
   orig: 44, 47
   offset: 0, 0

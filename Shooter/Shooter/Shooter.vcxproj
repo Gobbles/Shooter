@@ -76,7 +76,8 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Higgins.cpp" />
-    <ClCompile Include="HigginsOwnedStates.cpp" />
+    <ClCompile Include="HigginsActionStates.cpp" />
+    <ClCompile Include="HigginsBaseStates.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ShotLevelOne.cpp" />
@@ -107,12 +108,13 @@
     <ClCompile Include="src\spine\spine-sfml.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AnimationStateMachine.h" />
+    <ClInclude Include="GamePlayStateMachine.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Higgins.h" />
-    <ClInclude Include="HigginsOwnedStates.h" />
+    <ClInclude Include="HigginsActionStates.h" />
+    <ClInclude Include="HigginsBaseStates.h" />
     <ClInclude Include="IDrawable.h" />
     <ClInclude Include="include\spine\Animation.h" />
     <ClInclude Include="include\spine\AnimationState.h" />

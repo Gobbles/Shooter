@@ -3,8 +3,9 @@
 
 #include "Entity.h"
 
-#include "AnimationStateMachine.h"
-#include "HigginsOwnedStates.h"
+#include "GamePlayStateMachine.h"
+#include "HigginsActionStates.h"
+#include "HigginsBaseStates.h"
 #include <functional>
 
 class Higgins : public Entity
@@ -22,13 +23,19 @@ public:
 	void SetAnimIdle();
 	void SetAnimRun();
 
+	void StartAttack();
+	void FireShot(float chargeLevel);
+	void RemoveAttack();
+
+	void FlipSkeleton(const bool value);
 private:
 
 	void BuildCombos();
 	void BuildSpineCharacter();
 
 	//animation State Machine
-	std::shared_ptr<AnimationStateMachine<Higgins> > mAnimStateMachine;
+	std::shared_ptr<GamePlayStateMachine<Higgins> > mBaseStateMachine;
+	std::shared_ptr<GamePlayStateMachine<Higgins> > mActionStateMachine;
 	void SetupCallBack();
 };
 

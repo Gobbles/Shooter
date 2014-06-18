@@ -16,8 +16,11 @@ Higgins::Higgins() : Entity()
 	BuildSpineCharacter();
 	BuildCombos();
 
-	mAnimStateMachine = std::make_shared<AnimationStateMachine<Higgins> >(AnimationStateMachine<Higgins>(this));
-	mAnimStateMachine->SetCurrentState(HigginsIdle::Instance());
+	mBaseStateMachine = std::make_shared<GamePlayStateMachine<Higgins> >(GamePlayStateMachine<Higgins>(this));
+	mBaseStateMachine->SetCurrentState(HigginsIdle::Instance());
+
+	mActionStateMachine = std::make_shared<GamePlayStateMachine<Higgins> >(GamePlayStateMachine<Higgins>(this));
+	mActionStateMachine->SetCurrentState(HigginsWaiting::Instance());
 }
 
 Higgins::~Higgins()
@@ -55,7 +58,7 @@ void Higgins::BuildSpineCharacter()
 	AnimationStateData_setMixByName(stateData, "Idle", "Run", 0.2f);*/
 	
 	drawable = new spine::SkeletonDrawable(skeletonData, stateData);
-	drawable->timeScale = 1;
+	drawable->timeScale = 1.0f;
 
 	skeleton = drawable->skeleton;
 	skeleton->flipX = false;
@@ -127,76 +130,63 @@ void Higgins::Draw(sf::RenderWindow& window)
 
 void Higgins::Update(const float timePassed)
 {
-	if(moveDown)
-		mVelocity.y = 300;
-	else if(moveUp)
-		mVelocity.y = -300;
-	else
-		mVelocity.y = 0;
+	mVelocity.y = 0;
+	mVelocity.x = 0;
 
-	if(moveRight)
-	{
-		mVelocity.x = 300;
-		skeleton->flipX = false;
-	}
-	else if(moveLeft)
-	{
-		mVelocity.x = -300;
-		skeleton->flipX = true;
-	}
-	else
-		mVelocity.x = 0;
+	inputHandler.Update(timePassed);
+	mBaseStateMachine->HandleInput(inputs);
+	mActionStateMachine->HandleInput(inputs);
 
-	if(attack && !isAttacking)
-	{
-		isAttacking = true;
-		//AnimationState_setAnimationByName(drawable->state, 1, "Attack", true);
-	}
-	else if(defend && !isBlocking && !isDodging)
-	{
-		std::cout << "Speed X: " << mVelocity.x;
-		std::cout << " Speed Y: " << mVelocity.y;
-		if(mVelocity.x != 0 || mVelocity.y != 0)
-		{
-			//dodgeroll
-			std::cout << "DodgeRoll";
-			if(moveLeft)
-				mVelocity.x = -600;
-			else if(moveRight)
-				mVelocity.x = 600;
-			//AnimationState_setAnimationByName(drawable->state, 0, "DodgeRoll", false);
-		}
-		else
-		{
-			std::cout << "Block";
-			isBlocking = true;
-			//block
-		}
-	}
+	mBaseStateMachine->Update(timePassed);
+	mActionStateMachine->Update(timePassed);
 
 	mPosition.x += mVelocity.x * timePassed;
 	mPosition.y += mVelocity.y * timePassed;
 
-	inputHandler.Update(timePassed);
 	drawable->update(timePassed);
-	mAnimStateMachine->Update();
 }
 
 void Higgins::SetAnimIdle()
 {
-	mAnimStateMachine->ChangeState(HigginsIdle::Instance());
-	AnimationState_setAnimationByName(drawable->state, 0, "Idle", true);
-	Skeleton_setToSetupPose(drawable->skeleton);
+	if(!mBaseStateMachine->isInState(HigginsIdle::Instance()))
+	{
+		mBaseStateMachine->ChangeState(HigginsIdle::Instance());
+		AnimationState_setAnimationByName(drawable->state, 0, "Idle", true);
+		Skeleton_setToSetupPose(drawable->skeleton);
+	}
 }
 
 void Higgins::SetAnimRun()
 {
-	if(!mAnimStateMachine->isInState(HigginsMove::Instance()))
+	if(!mBaseStateMachine->isInState(HigginsMove::Instance()))
 	{
-		mAnimStateMachine->ChangeState(HigginsMove::Instance());
+		mBaseStateMachine->ChangeState(HigginsMove::Instance());
 		AnimationState_setAnimationByName(drawable->state, 0, "Run", true);
 		Skeleton_setToSetupPose(drawable->skeleton);
 	}
+}
+
+void Higgins::StartAttack()
+{
+	mActionStateMachine->ChangeState(HigginsAttack::Instance());
+	AnimationState_setAnimationByName(drawable->state, 1, "Attack", true);
+	Skeleton_setToSetupPose(drawable->skeleton);
+}
+
+void Higgins::FireShot(float chargeLevel)
+{
+	
+}
+
+void Higgins::RemoveAttack()
+{
+	AnimationState_clearTrack(drawable->state, 1);
+	mActionStateMachine->ChangeState(HigginsWaiting::Instance());
+}
+
+void Higgins::FlipSkeleton(const bool value)
+{
+	skeleton->flipX = value;
 }
 
 void Higgins::SetupCallBack()
@@ -213,25 +203,23 @@ void Higgins::SetupCallBack()
 		switch (type) 
 		{
 			case ANIMATION_START:
-				printf("%d start: %s\n", trackIndex, animationName);
+				//printf("%d start: %s\n", trackIndex, animationName);
 				break;
 			case ANIMATION_END:
-				printf("%d end: %s\n", trackIndex, animationName);
+				//printf("%d end: %s\n", trackIndex, animationName);
 				value = std::strcmp(animationName, "Attack");
-				if(value != -1)
+				if(value == 0)
 				{
-					std::cout << "Reseting attack: ";
-					higgins->isAttacking = false;
-					higgins->attack = false;
-					std::cout << higgins->isAttacking;
+					//std::cout << "Reseting attack: ";
+					//higgins->ClearAttack();
 				}
 				break;
 			case ANIMATION_COMPLETE:
-				printf("%d complete: %s, %d\n", trackIndex, animationName, loopCount);
+				//printf("%d complete: %s, %d\n", trackIndex, animationName, loopCount);
 				break;
 			case ANIMATION_EVENT:
-				printf("%d event: %s, %s: %d, %f, %s\n", trackIndex, animationName, event->data->name, event->intValue, event->floatValue,
-						event->stringValue);
+				//printf("%d event: %s, %s: %d, %f, %s\n", trackIndex, animationName, event->data->name, event->intValue, event->floatValue,
+						//event->stringValue);
 				break;
 		}
 		fflush(stdout);

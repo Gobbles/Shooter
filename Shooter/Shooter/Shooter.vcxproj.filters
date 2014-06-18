@@ -63,9 +63,6 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files\Characters</Filter>
     </ClCompile>
-    <ClCompile Include="HigginsOwnedStates.cpp">
-      <Filter>Source Files\AnimationStateMachine\higginsStates</Filter>
-    </ClCompile>
     <ClCompile Include="src\spine\Animation.c">
       <Filter>Source Files\spine</Filter>
     </ClCompile>
@@ -144,6 +141,12 @@
     <ClCompile Include="src\spine\SkinnedMeshAttachment.c">
       <Filter>Source Files\spine</Filter>
     </ClCompile>
+    <ClCompile Include="HigginsBaseStates.cpp">
+      <Filter>Source Files\AnimationStateMachine\higginsStates</Filter>
+    </ClCompile>
+    <ClCompile Include="HigginsActionStates.cpp">
+      <Filter>Source Files\AnimationStateMachine\higginsStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -163,12 +166,6 @@
     </ClInclude>
     <ClInclude Include="State.h">
       <Filter>Header Files\AnimationStateMachine</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimationStateMachine.h">
-      <Filter>Header Files\AnimationStateMachine</Filter>
-    </ClInclude>
-    <ClInclude Include="HigginsOwnedStates.h">
-      <Filter>Header Files\AnimationStateMachine\HigginsStates</Filter>
     </ClInclude>
     <ClInclude Include="include\spine\Animation.h">
       <Filter>Header Files\spine</Filter>
@@ -256,6 +253,15 @@
     </ClInclude>
     <ClInclude Include="include\spine\SkinnedMeshAttachment.h">
       <Filter>Header Files\spine</Filter>
+    </ClInclude>
+    <ClInclude Include="HigginsBaseStates.h">
+      <Filter>Header Files\AnimationStateMachine\HigginsStates</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePlayStateMachine.h">
+      <Filter>Header Files\AnimationStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="HigginsActionStates.h">
+      <Filter>Header Files\AnimationStateMachine\HigginsStates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

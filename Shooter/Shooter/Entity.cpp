@@ -1,15 +1,8 @@
 #include "Entity.h"
 
-Entity::Entity() : moveUp(false),
-	moveLeft(false),
-	moveRight(false),
-	moveDown(false),
-	defend(false),
-	isBlocking(false),
-	isDodging(false),
-	attack(false),
-	isAttacking(false)
+Entity::Entity()
 {
+	inputs = std::vector<bool>(InputCommands::Input::Max_Inputs, false);
 	inputHandler = InputHandler();
 }
 
@@ -21,8 +14,8 @@ Entity::~Entity()
 bool Entity::CheckInput(sf::Event &event)
 { 
 	bool checkCombos = false;
-	moveUp = moveDown = moveLeft = moveRight = defend = false;
-	InputCommands::Input input;
+	inputs[InputCommands::Input::Up] = inputs[InputCommands::Input::Down] = inputs[InputCommands::Input::Left] = inputs[InputCommands::Input::Right] = false;
+
 	if (event.type == sf::Event::JoystickButtonPressed)
 	{
 		std::cout << "joystick button pressed!" << std::endl;
@@ -40,15 +33,13 @@ bool Entity::CheckInput(sf::Event &event)
 	}
 	//movement Inputs
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		moveLeft = true;
+		inputs[InputCommands::Input::Left] = true;
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		moveRight = true;
+		inputs[InputCommands::Input::Right] = true;
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		moveUp = true;
+		inputs[InputCommands::Input::Up] = true;
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		moveDown = true;
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-		defend = true;
+		inputs[InputCommands::Input::Down] = true;
 
 	//combo keyInputs
 	if (event.type == sf::Event::KeyPressed)
@@ -57,8 +48,12 @@ bool Entity::CheckInput(sf::Event &event)
 		{
 			case sf::Keyboard::Q:
 			{
-				std::cout <<"Attacking";
-				attack = true;
+				inputs[InputCommands::Input::Light_Attack] = true;
+				break;
+			}
+			case sf::Keyboard::E:
+			{
+				inputs[InputCommands::Input::Block] = true;
 				break;
 			}
 			/*case sf::Keyboard::Q:
@@ -110,6 +105,23 @@ bool Entity::CheckInput(sf::Event &event)
 				checkCombos = true;
 				break;
 			}*/
+		}
+	}
+
+	if (event.type == sf::Event::KeyReleased)
+	{
+		switch(event.key.code)
+		{
+			case sf::Keyboard::Q:
+			{
+				inputs[InputCommands::Input::Light_Attack] = false;
+				break;
+			}
+			case sf::Keyboard::E:
+			{
+				inputs[InputCommands::Input::Block] = false;
+				break;
+			}
 		}
 	}
 	return checkCombos;

@@ -19,7 +19,8 @@ enum Input
 	Jump,
 	Block,
 	Ability_One,
-	Ability_Two
+	Ability_Two,
+	Max_Inputs
 };
 }
 

@@ -5,7 +5,7 @@ class IUpdateable
 {
 public:
 	virtual ~IUpdateable(){}
-	virtual void Update(float timePassed) = 0;
+	virtual void Update(const float timePassed) = 0;
 };
 
 #endif

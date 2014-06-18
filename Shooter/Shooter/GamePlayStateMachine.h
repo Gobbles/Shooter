@@ -1,11 +1,11 @@
-#ifndef ANIMATION_STATE_MACHINE_H
-#define ANIMATION_STATE_MACHINE_H
+#ifndef GAME_PLAY_STATE_MACHINE_H
+#define GAME_PLAY_STATE_MACHINE_H
 
 #include "State.h"
 #include <cassert>
 
 template <class entity_type>
-class AnimationStateMachine
+class GamePlayStateMachine
 {
 private:
     entity_type* mOwner;
@@ -20,7 +20,7 @@ private:
     State<entity_type>* mGlobalState;
 
 public:
-    AnimationStateMachine(entity_type* owner):mOwner(owner),
+    GamePlayStateMachine(entity_type* owner):mOwner(owner),
     mCurrentState(NULL),
     mPreviousState(NULL),
     mGlobalState(NULL)
@@ -28,19 +28,24 @@ public:
 		std::cout << "Build Machine\n";
 	}
 
-    virtual ~AnimationStateMachine() {}
+    virtual ~GamePlayStateMachine() {}
 
     void SetCurrentState(State<entity_type>* s) {mCurrentState = s;}
     void SetGlobalState(State<entity_type>* s) {mGlobalState = s;}
     void SetPreviousState(State<entity_type>* s){mPreviousState = s;}
 
-    void Update()const
+	void HandleInput(const std::vector<bool> inputs)
+	{
+		mCurrentState->HandleInput(mOwner, inputs);
+	}
+
+    void Update(const float timePassed)const
     {
         if(mGlobalState)
-            mGlobalState->Update(mOwner);
+            mGlobalState->Update(mOwner, timePassed);
 
         if(mCurrentState)
-            mCurrentState->Update(mOwner);
+            mCurrentState->Update(mOwner, timePassed);
     }
 
     void ChangeState(State<entity_type>* pNewState)
