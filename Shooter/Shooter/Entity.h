@@ -7,14 +7,17 @@
 #include "InputHandler.h"
 #include "IDrawable.h"
 #include "IUpdateable.h"
+#include "EffectsManager.h"
+
+enum Face
+{
+	Right = 0,
+	Left
+};
 
 class Entity : public IDrawable, public IUpdateable
 {
 protected:
-	sf::RectangleShape baseQuad;
-	sf::RectangleShape defensiveQuad;
-	sf::RectangleShape offensiveQuad;
-
 	InputHandler inputHandler;
 
 	InputCommands::Input Combos[4][5];
@@ -34,8 +37,14 @@ protected:
 
 	//State data
 	AnimationStateData* stateData;
+	
+	//facing
+	Face face;
 
 public:
+	sf::RectangleShape baseQuad;
+	sf::RectangleShape defensiveQuad;
+	sf::RectangleShape offensiveQuad;
 	//members
 	sf::Vector2f mVelocity;
 	sf::Vector2f mPosition;

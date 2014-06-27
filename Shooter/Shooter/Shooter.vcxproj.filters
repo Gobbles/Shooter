@@ -22,18 +22,6 @@
     <Filter Include="Header Files\interface">
       <UniqueIdentifier>{f179253f-3a29-4728-a470-2e948f50fb1b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\AnimationStateMachine">
-      <UniqueIdentifier>{3265acb3-1b69-4da5-8457-34545c60c3d2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\AnimationStateMachine\HigginsStates">
-      <UniqueIdentifier>{b0d1f64f-a4af-4dc9-9f86-67542c6618ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\AnimationStateMachine">
-      <UniqueIdentifier>{c79c7a8b-20a8-475a-90ed-2a22032dce79}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\AnimationStateMachine\higginsStates">
-      <UniqueIdentifier>{d256771d-1ede-401b-a7b7-574c4ac27125}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\spine">
       <UniqueIdentifier>{159d0259-c029-4778-bb68-042051c25e21}</UniqueIdentifier>
     </Filter>
@@ -45,6 +33,30 @@
     </Filter>
     <Filter Include="Source Files\Effects">
       <UniqueIdentifier>{ed570f8a-c333-4871-a9d4-fcaae9b96843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GamePlayStateMachine">
+      <UniqueIdentifier>{3265acb3-1b69-4da5-8457-34545c60c3d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GamePlayStateMachine\HigginsStates">
+      <UniqueIdentifier>{b0d1f64f-a4af-4dc9-9f86-67542c6618ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GamePlayStateMachine">
+      <UniqueIdentifier>{c79c7a8b-20a8-475a-90ed-2a22032dce79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GamePlayStateMachine\higginsStates">
+      <UniqueIdentifier>{d256771d-1ede-401b-a7b7-574c4ac27125}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Effects\Higgins">
+      <UniqueIdentifier>{cc04394f-85ea-4fb2-89e8-1e9b22dc7e70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Effects\Higgins">
+      <UniqueIdentifier>{294d2f83-9f89-49cd-bbd4-b9c09d6e274d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utility">
+      <UniqueIdentifier>{b50a84cc-bc1c-4edb-af4f-dd91404fee7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility">
+      <UniqueIdentifier>{bcb021eb-f477-423b-96e2-ea48a38cfda0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -132,9 +144,6 @@
     <ClCompile Include="src\spine\spine-sfml.cpp">
       <Filter>Source Files\spine</Filter>
     </ClCompile>
-    <ClCompile Include="ShotLevelOne.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\spine\MeshAttachment.c">
       <Filter>Source Files\spine</Filter>
     </ClCompile>
@@ -142,10 +151,25 @@
       <Filter>Source Files\spine</Filter>
     </ClCompile>
     <ClCompile Include="HigginsBaseStates.cpp">
-      <Filter>Source Files\AnimationStateMachine\higginsStates</Filter>
+      <Filter>Source Files\GamePlayStateMachine\higginsStates</Filter>
     </ClCompile>
     <ClCompile Include="HigginsActionStates.cpp">
-      <Filter>Source Files\AnimationStateMachine\higginsStates</Filter>
+      <Filter>Source Files\GamePlayStateMachine\higginsStates</Filter>
+    </ClCompile>
+    <ClCompile Include="ShotLevelOne.cpp">
+      <Filter>Source Files\Effects\Higgins</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectsManager.cpp">
+      <Filter>Source Files\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectsFactory.cpp">
+      <Filter>Source Files\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedSprite.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteAnimation.cpp">
+      <Filter>Source Files\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -165,7 +189,7 @@
       <Filter>Header Files\Characters</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
-      <Filter>Header Files\AnimationStateMachine</Filter>
+      <Filter>Header Files\GamePlayStateMachine</Filter>
     </ClInclude>
     <ClInclude Include="include\spine\Animation.h">
       <Filter>Header Files\spine</Filter>
@@ -242,9 +266,6 @@
     <ClInclude Include="Effect.h">
       <Filter>Header Files\Effects</Filter>
     </ClInclude>
-    <ClInclude Include="ShotLevelOne.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\spine\spine-sfml.h">
       <Filter>Header Files\spine</Filter>
     </ClInclude>
@@ -255,13 +276,28 @@
       <Filter>Header Files\spine</Filter>
     </ClInclude>
     <ClInclude Include="HigginsBaseStates.h">
-      <Filter>Header Files\AnimationStateMachine\HigginsStates</Filter>
+      <Filter>Header Files\GamePlayStateMachine\HigginsStates</Filter>
     </ClInclude>
     <ClInclude Include="GamePlayStateMachine.h">
-      <Filter>Header Files\AnimationStateMachine</Filter>
+      <Filter>Header Files\GamePlayStateMachine</Filter>
     </ClInclude>
     <ClInclude Include="HigginsActionStates.h">
-      <Filter>Header Files\AnimationStateMachine\HigginsStates</Filter>
+      <Filter>Header Files\GamePlayStateMachine\HigginsStates</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectsManager.h">
+      <Filter>Header Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="ShotLevelOne.h">
+      <Filter>Header Files\Effects\Higgins</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectsFactory.h">
+      <Filter>Header Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedSprite.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteAnimation.h">
+      <Filter>Header Files\Utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

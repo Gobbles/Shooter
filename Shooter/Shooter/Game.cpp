@@ -1,17 +1,19 @@
 #include "Game.h"
 
-Game::Game() : window(sf::VideoMode(1024,768),"Josh & Higgins vs The World", sf::Style::Close)
+Game::Game() : window(sf::VideoMode(1024,768),"BFF: A Tale of Two Best Friends", sf::Style::Close)
 {
 	window.setKeyRepeatEnabled(false);
 	if(!mapTexture.loadFromFile("Art/background.png"))
 	{ }
 	mapSprite.setTexture(mapTexture);
 
-	Player1 = std::shared_ptr<Higgins>(new Higgins());
+	mEffectsManager = std::unique_ptr<EffectsManager>(new EffectsManager());
+	Player1 = std::shared_ptr<Higgins>(new Higgins(*mEffectsManager));
 
 	mGameEntities.push_back(Player1);
 
-	mShot = std::unique_ptr<ShotLevelOne>(new ShotLevelOne(sf::Vector2f(Player1->mPosition.x + 40, Player1->mPosition.y - 100),false));
+	//mShot = std::unique_ptr<ShotLevelOne>(new ShotLevelOne(sf::Vector2f(Player1->mPosition.x + 40, Player1->mPosition.y - 100),false));
+	//mEffectsManager->AddEffect(1, sf::Vector2f(Player1->mPosition.x + 40, Player1->mPosition.y - 100));
 }
 
 Game::~Game()
@@ -34,6 +36,7 @@ void Game::Run()
 			timeSinceLastUpdate -= timePerFrame;
 			ProcessEvents();
 			Update(timePerFrame.asSeconds());
+			CheckCollisions();
 		}
 		Draw();
 	}
@@ -57,7 +60,18 @@ void Game::CheckEvents(sf::Event &event)
 		case sf::Event::Closed:
 		{
 			window.close();
+			break;
 		}
+	}
+}
+
+void Game::CheckCollisions()
+{
+	for(int i = 0; i < mGameEntities.size(); ++i)
+	{
+		//mDrawables[i]->Update(timePassed);
+		Entity& entity = *mGameEntities[i];
+		mEffectsManager->CheckCollisions(entity);
 	}
 }
 
@@ -73,7 +87,8 @@ void Game::Update(float timePassed)
 			updateable->Update(timePassed);
 		}
 	}
-	mShot->Update(timePassed);
+	mEffectsManager->Update(timePassed);
+	//mShot->Update(timePassed);
 	//Player1->Update(timePassed);
 }
 
@@ -90,7 +105,8 @@ void Game::Draw()
 			drawable->Draw(window);
 		}
 	}
-	mShot->Draw(window);
+	mEffectsManager->Draw(window);
+	//mShot->Draw(window);
 	//Player1->Draw(window);
 	window.display();
 }

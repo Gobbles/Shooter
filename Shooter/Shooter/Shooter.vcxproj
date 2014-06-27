@@ -73,6 +73,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimatedSprite.cpp" />
+    <ClCompile Include="SpriteAnimation.cpp" />
+    <ClCompile Include="EffectsFactory.cpp" />
+    <ClCompile Include="EffectsManager.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Higgins.cpp" />
@@ -108,6 +112,10 @@
     <ClCompile Include="src\spine\spine-sfml.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimatedSprite.h" />
+    <ClInclude Include="SpriteAnimation.h" />
+    <ClInclude Include="EffectsFactory.h" />
+    <ClInclude Include="EffectsManager.h" />
     <ClInclude Include="GamePlayStateMachine.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="Entity.h" />

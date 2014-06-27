@@ -1,7 +1,8 @@
 #include "Higgins.h"
 
-Higgins::Higgins() : Entity()
+Higgins::Higgins(EffectsManager& eManager) : Entity()
 {
+	effectsManager = &eManager;
 	mPosition = sf::Vector2f(400,400);
 	mVelocity = sf::Vector2f(0,0);
 
@@ -13,6 +14,11 @@ Higgins::Higgins() : Entity()
 	defensiveQuad.setOrigin(defensiveQuad.getSize().x/2,defensiveQuad.getSize().y/2);
 	defensiveQuad.setFillColor(sf::Color(0,255,0,64));
 
+	if (!chargeTexture.loadFromFile("Art/Higgins/HigginsChargeLevels.png"))
+    {
+        std::cout << "Failed to load player spritesheet!" << std::endl;
+    }
+	SetUpChargeAnimations();
 	BuildSpineCharacter();
 	BuildCombos();
 
@@ -30,11 +36,6 @@ Higgins::~Higgins()
 	Atlas_dispose(atlas);
 	AnimationStateData_dispose(stateData);
 	delete drawable;
-}
-
-void Higgins::SetupAnimations()
-{
-	
 }
 
 void Higgins::BuildSpineCharacter()
@@ -63,6 +64,8 @@ void Higgins::BuildSpineCharacter()
 	skeleton = drawable->skeleton;
 	skeleton->flipX = false;
 	skeleton->flipY = false;
+
+	face = Face::Right;
 	
 	skeleton->x = 0;
 	skeleton->y = 0;
@@ -72,6 +75,48 @@ void Higgins::BuildSpineCharacter()
 
 	//add listener
 	SetupCallBack();
+}
+
+void Higgins::SetUpChargeAnimations()
+{
+	//charge level one
+	chargeOneAnimation.SetSpriteSheet(chargeTexture);
+	chargeOneAnimation.AddFrame(sf::IntRect(766, 538, 248, 283));
+	chargeOneAnimation.AddFrame(sf::IntRect(1502, 527, 236, 265));
+	chargeOneAnimation.AddFrame(sf::IntRect(1256, 0, 242, 263));
+	chargeOneAnimation.AddFrame(sf::IntRect(515, 0, 246, 259));
+	chargeOneAnimation.AddFrame(sf::IntRect(1258, 265, 241, 258));
+	chargeOneAnimation.AddFrame(sf::IntRect(1743, 0, 233, 252));
+	chargeOneAnimation.AddFrame(sf::IntRect(0, 592, 256, 278));
+	chargeOneAnimation.AddFrame(sf::IntRect(261, 0, 252, 268));
+
+	//charge level two
+	chargeTwoAnimation.SetSpriteSheet(chargeTexture);
+	chargeTwoAnimation.AddFrame(sf::IntRect(260,298,252,288));
+	chargeTwoAnimation.AddFrame(sf::IntRect(1740,527,236,274));
+	chargeTwoAnimation.AddFrame(sf::IntRect(1013,265,243,261));
+	chargeTwoAnimation.AddFrame(sf::IntRect(763,0,245,263));
+	chargeTwoAnimation.AddFrame(sf::IntRect(1260,525,240,258));
+	chargeTwoAnimation.AddFrame(sf::IntRect(1016,528,242,253));
+	chargeTwoAnimation.AddFrame(sf::IntRect(1743,254,232,240));
+	chargeTwoAnimation.AddFrame(sf::IntRect(0,298,258,292));
+
+	//charge level three
+	chargeThreeAnimation.SetSpriteSheet(chargeTexture);
+	chargeThreeAnimation.AddFrame(sf::IntRect(258,592,254,297));
+	chargeThreeAnimation.AddFrame(sf::IntRect(1502,253,239,272));
+	chargeThreeAnimation.AddFrame(sf::IntRect(514,270,251,266));
+	chargeThreeAnimation.AddFrame(sf::IntRect(514,538,250,267));
+	chargeThreeAnimation.AddFrame(sf::IntRect(1010,0,244,263));
+	chargeThreeAnimation.AddFrame(sf::IntRect(767,265,244,259));
+	chargeThreeAnimation.AddFrame(sf::IntRect(1500,0,240,251));
+	chargeThreeAnimation.AddFrame(sf::IntRect(0,0,259,296));
+
+	currentChargeAnimation = &chargeOneAnimation;
+
+	chargeSprite = AnimatedSprite(0.05f, false, true);
+	chargeSprite.setPosition(sf::Vector2f(mPosition));
+	chargeSprite.Play(*currentChargeAnimation);
 }
 
 void Higgins::BuildCombos()
@@ -118,11 +163,13 @@ void Higgins::ProcessInput(sf::Event& event)
 void Higgins::Draw(sf::RenderWindow& window)
 {
 	//set quad positions
+	chargeSprite.setPosition(sf::Vector2f(mPosition.x - 110, mPosition.y - 225));
 	defensiveQuad.setPosition(mPosition.x, mPosition.y - 95);
 	baseQuad.setPosition(mPosition.x, mPosition.y - 20);
 	skeleton->x = mPosition.x;
 	skeleton->y = mPosition.y;
 
+	window.draw(chargeSprite);
 	window.draw(*drawable);
 	window.draw(baseQuad);
 	window.draw(defensiveQuad);
@@ -144,6 +191,7 @@ void Higgins::Update(const float timePassed)
 	mPosition.y += mVelocity.y * timePassed;
 
 	drawable->update(timePassed);
+	chargeSprite.Update(timePassed);
 }
 
 void Higgins::SetAnimIdle()
@@ -171,11 +219,22 @@ void Higgins::StartAttack()
 	mActionStateMachine->ChangeState(HigginsAttack::Instance());
 	AnimationState_setAnimationByName(drawable->state, 1, "Attack", true);
 	Skeleton_setToSetupPose(drawable->skeleton);
+	currentChargeAnimation = &chargeOneAnimation;
+	chargeSprite.Play(*currentChargeAnimation);
 }
 
 void Higgins::FireShot(float chargeLevel)
 {
-	
+	//bool flip = false;
+	//if(face == Face::Left) flip = true;
+	sf::Vector2f shotPos(mPosition.x, mPosition.y - 115);
+	if(face == Face::Right)
+		shotPos.x += 40;
+	else
+		shotPos.x -= 80;
+	effectsManager->AddEffect(0, shotPos, face);
+
+	chargeSprite.Stop();
 }
 
 void Higgins::RemoveAttack()
@@ -184,8 +243,23 @@ void Higgins::RemoveAttack()
 	mActionStateMachine->ChangeState(HigginsWaiting::Instance());
 }
 
+void Higgins::SetChargeLevelTwo()
+{
+	currentChargeAnimation = &chargeTwoAnimation;
+	chargeSprite.Play(*currentChargeAnimation);
+}
+
+void Higgins::SetChargeLevelThree()
+{
+	currentChargeAnimation = &chargeThreeAnimation;
+	chargeSprite.Play(*currentChargeAnimation);
+}
+
 void Higgins::FlipSkeleton(const bool value)
 {
+	if(value)
+		face = Face::Left;
+	else face = Face::Right;
 	skeleton->flipX = value;
 }
 

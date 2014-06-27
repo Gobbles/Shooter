@@ -16,19 +16,25 @@ public:
 	//Interfaces
 	virtual void Update(const float timePassed) {}
 	virtual void Draw(sf::RenderWindow& window) {}
-	/**************************************
-	*	MEMBERS
-	***************************************/
+
+	//======================================
+	//	MEMBERS
+	//======================================
 	//position and veloctiy
 	sf::Vector2f mVelocity;
 	sf::Vector2f mPosition;
 	//texture and sprite(will later be an animation
-protected:
-	sf::Texture mTexture;
-	sf::Sprite mSprite;
+
 	//a base quad and an offensive quad for effects, no defensive quad needed
 	sf::RectangleShape mBaseQuad;
 	sf::RectangleShape mOffensiveQuad;
+
+	bool isActive;
+protected:
+	sf::Texture mTexture;
+	sf::Sprite mSprite;
+
+	virtual void Kill() = 0;
 };
 
 #endif // EFFECT_H

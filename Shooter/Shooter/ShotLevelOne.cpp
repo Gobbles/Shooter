@@ -1,8 +1,9 @@
-#include "ShotLevelOne.h"
+#include "EffectsManager.h"
 #include <iostream>
 
-ShotLevelOne::ShotLevelOne(const sf::Vector2f shotPosition, bool flip)
+ShotLevelOne::ShotLevelOne(EffectsManager* eManager, const sf::Vector2f shotPosition, bool flip)
 {
+	effectsManager = eManager;
 	//texture and sprite(will later be an animation
 	if(!mTexture.loadFromFile("Art/shot.png"))
 	{
@@ -18,7 +19,7 @@ ShotLevelOne::ShotLevelOne(const sf::Vector2f shotPosition, bool flip)
 	{
 		// flip X
 		mSprite.setTextureRect(sf::IntRect(41, 0, -41, 21));
-		mVelocity = sf::Vector2f(-400,0);
+		mVelocity = sf::Vector2f(-1000,0);
 	}
 
 	//a base quad and an offensive quad for effects, no defensive quad needed
@@ -33,6 +34,9 @@ ShotLevelOne::ShotLevelOne(const sf::Vector2f shotPosition, bool flip)
 	mSprite.setPosition(mPosition);
 	mBaseQuad.setPosition(sf::Vector2f(mPosition.x + 21, mPosition.y + 80));
 	mOffensiveQuad.setPosition(sf::Vector2f(mPosition.x + 21, mPosition.y + 10));
+
+	isActive = true;
+	travelDistance = 0;
 }
 
 ShotLevelOne::~ShotLevelOne()
@@ -41,9 +45,11 @@ ShotLevelOne::~ShotLevelOne()
 
 void ShotLevelOne::Update(const float timePassed)
 {
-	mPosition.x += mVelocity.x * timePassed;
-	if(mPosition.x > 1280) mPosition.x = 0;
-	mPosition.y += mVelocity.y * timePassed;
+	float distanceToMove = mVelocity.x * timePassed;
+	travelDistance += distanceToMove;
+	mPosition.x += distanceToMove;
+
+	if(mPosition.x > 1280) Kill();
 
 	mSprite.setPosition(mPosition);
 	mBaseQuad.setPosition(sf::Vector2f(mPosition.x + 21, mPosition.y + 80));
@@ -55,4 +61,9 @@ void ShotLevelOne::Draw(sf::RenderWindow& window)
 	window.draw(mSprite);
 	window.draw(mBaseQuad);
 	window.draw(mOffensiveQuad);
+}
+
+void ShotLevelOne::Kill()
+{
+	effectsManager->RemoveEffect(this);
 }

@@ -59,7 +59,16 @@ void HigginsAttack::Update(Higgins* higgins, const float timePassed)
 {
 	if(!onCooldown)
 	{
+		int prevCharge = chargeLevel;
 		chargeLevel += 1 * timePassed;
+		if(prevCharge < 1.0 && chargeLevel >= 1.0)
+		{
+			higgins->SetChargeLevelTwo();
+		}
+		else if(prevCharge < 2.0 && chargeLevel >= 2.0)
+		{
+			higgins->SetChargeLevelThree();
+		}
 		std::cout << "ChargeLevel: " << chargeLevel << "\n";
 	}
 	else
@@ -78,8 +87,9 @@ void HigginsAttack::Exit(Higgins* higgins)
 
 void HigginsAttack::HandleInput(Higgins* higgins,const std::vector<bool> inputs)
 {
-	if(inputs[InputCommands::Input::Light_Attack] == false)
+	if(inputs[InputCommands::Input::Light_Attack] == false && !onCooldown)
 	{
+		std::cout << "We SHOT A BLAST!";
 		//we now change state to attack
 		higgins->FireShot(chargeLevel);
 		onCooldown = true;
