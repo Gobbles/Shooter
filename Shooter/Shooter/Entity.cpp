@@ -14,6 +14,7 @@ Entity::~Entity()
 bool Entity::CheckInput(sf::Event &event)
 { 
 	bool checkCombos = false;
+	InputCommands::Input input;
 	inputs[InputCommands::Input::Up] = inputs[InputCommands::Input::Down] = inputs[InputCommands::Input::Left] = inputs[InputCommands::Input::Right] = false;
 
 	if (event.type == sf::Event::JoystickButtonPressed)
@@ -33,13 +34,33 @@ bool Entity::CheckInput(sf::Event &event)
 	}
 	//movement Inputs
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
 		inputs[InputCommands::Input::Left] = true;
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		input = InputCommands::Input::Left;
+		inputHandler.QueueInput(input);
+		checkCombos = true;
+	}
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
 		inputs[InputCommands::Input::Right] = true;
+		input = InputCommands::Input::Right;
+		inputHandler.QueueInput(input);
+		checkCombos = true;
+	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
 		inputs[InputCommands::Input::Up] = true;
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		input = InputCommands::Input::Up;
+		inputHandler.QueueInput(input);
+		checkCombos = true;
+	}
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
 		inputs[InputCommands::Input::Down] = true;
+		input = InputCommands::Input::Down;
+		inputHandler.QueueInput(input);
+		checkCombos = true;
+	}
 
 	//combo keyInputs
 	if (event.type == sf::Event::KeyPressed)
@@ -49,6 +70,9 @@ bool Entity::CheckInput(sf::Event &event)
 			case sf::Keyboard::Q:
 			{
 				inputs[InputCommands::Input::Light_Attack] = true;
+				input = InputCommands::Input::Light_Attack;
+				inputHandler.QueueInput(input);
+				checkCombos = true;
 				break;
 			}
 			case sf::Keyboard::E:
@@ -129,7 +153,7 @@ bool Entity::CheckInput(sf::Event &event)
 
 int Entity::CheckCombos()
 {
-	system("cls");
+	std::cout << "\nCheckingCombos\n";
 	int size = inputHandler.GetSize();
 	int currentKey = 0;
 	if(size > 0)
@@ -147,7 +171,7 @@ int Entity::CheckCombos()
 					break; // break right away if our input to get is below 0 (the first element)
 				}
 
-				std::cout << "\nWe Have a proper check\n";
+				//std::cout << "\nWe Have a proper check\n";
 
 				InputCommands::Input inputToCheck = inputHandler.GetInput(currentKey);
 
@@ -159,7 +183,7 @@ int Entity::CheckCombos()
 					currentKey--;
 
 			}
-			std::cout << "\nNEXT COMBO\n";
+			//std::cout << "\nNEXT COMBO\n";
 		}
 		return -1;
 	}

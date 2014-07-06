@@ -5,12 +5,13 @@ Higgins::Higgins(EffectsManager& eManager) : Entity()
 	effectsManager = &eManager;
 	mPosition = sf::Vector2f(400,400);
 	mVelocity = sf::Vector2f(0,0);
+	mVelocityGoal = sf::Vector2f(0,0);
 
-	baseQuad = sf::RectangleShape(sf::Vector2f(100,45));
+	baseQuad = sf::RectangleShape(sf::Vector2f(80,45));
 	baseQuad.setOrigin(baseQuad.getSize().x/2,baseQuad.getSize().y/2);
 	baseQuad.setFillColor(sf::Color(0,0,255,64));
 
-	defensiveQuad = sf::RectangleShape(sf::Vector2f(80,180));
+	defensiveQuad = sf::RectangleShape(sf::Vector2f(60,170));
 	defensiveQuad.setOrigin(defensiveQuad.getSize().x/2,defensiveQuad.getSize().y/2);
 	defensiveQuad.setFillColor(sf::Color(0,255,0,64));
 
@@ -164,7 +165,7 @@ void Higgins::Draw(sf::RenderWindow& window)
 {
 	//set quad positions
 	chargeSprite.setPosition(sf::Vector2f(mPosition.x - 110, mPosition.y - 225));
-	defensiveQuad.setPosition(mPosition.x, mPosition.y - 95);
+	defensiveQuad.setPosition(mPosition.x, mPosition.y - 85);
 	baseQuad.setPosition(mPosition.x, mPosition.y - 20);
 	skeleton->x = mPosition.x;
 	skeleton->y = mPosition.y;
@@ -177,18 +178,21 @@ void Higgins::Draw(sf::RenderWindow& window)
 
 void Higgins::Update(const float timePassed)
 {
-	mVelocity.y = 0;
-	mVelocity.x = 0;
+	mVelocityGoal.x = 0;
+	mVelocityGoal.y = 0;
 
 	inputHandler.Update(timePassed);
 	mBaseStateMachine->HandleInput(inputs);
 	mActionStateMachine->HandleInput(inputs);
-
+	
 	mBaseStateMachine->Update(timePassed);
 	mActionStateMachine->Update(timePassed);
 
-	mPosition.x += mVelocity.x * timePassed;
-	mPosition.y += mVelocity.y * timePassed;
+	mVelocity.x = Approach(mVelocityGoal.x, mVelocity.x, timePassed * 1500);
+	mVelocity.y = Approach(mVelocityGoal.y, mVelocity.y, timePassed * 1500);
+
+	//update position and velocity
+	mPosition = mPosition + mVelocity * timePassed;
 
 	drawable->update(timePassed);
 	chargeSprite.Update(timePassed);

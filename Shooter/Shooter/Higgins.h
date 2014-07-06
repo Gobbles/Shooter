@@ -7,6 +7,7 @@
 #include "GamePlayStateMachine.h"
 #include "HigginsActionStates.h"
 #include "HigginsBaseStates.h"
+//#include "Maths.h"
 
 
 class Higgins : public Entity

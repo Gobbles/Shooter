@@ -74,6 +74,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnimatedSprite.cpp" />
+    <ClCompile Include="Maths.cpp" />
     <ClCompile Include="SpriteAnimation.cpp" />
     <ClCompile Include="EffectsFactory.cpp" />
     <ClCompile Include="EffectsManager.cpp" />
@@ -113,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h" />
+    <ClInclude Include="Maths.h" />
     <ClInclude Include="SpriteAnimation.h" />
     <ClInclude Include="EffectsFactory.h" />
     <ClInclude Include="EffectsManager.h" />

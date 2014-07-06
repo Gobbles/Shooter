@@ -1,6 +1,6 @@
 #include "Game.h"
 
-Game::Game() : window(sf::VideoMode(1024,768),"BFF: A Tale of Two Best Friends", sf::Style::Close)
+Game::Game() : window(sf::VideoMode(1024,768,32),"BFF: A Tale of Two Best Friends", sf::Style::Resize)
 {
 	window.setKeyRepeatEnabled(false);
 	if(!mapTexture.loadFromFile("Art/background.png"))
@@ -61,6 +61,14 @@ void Game::CheckEvents(sf::Event &event)
 		{
 			window.close();
 			break;
+		}
+		case sf::Event::KeyPressed:
+		{
+			if(event.key.code == sf::Keyboard::Escape)
+			{
+				window.close();
+				break;
+			}
 		}
 	}
 }

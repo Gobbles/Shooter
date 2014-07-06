@@ -58,6 +58,12 @@
     <Filter Include="Source Files\Utility">
       <UniqueIdentifier>{bcb021eb-f477-423b-96e2-ea48a38cfda0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\MathFiles">
+      <UniqueIdentifier>{927564cc-88e8-47f5-bc3e-4aa1dd209acb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MathFiles">
+      <UniqueIdentifier>{9e6e1482-3b56-4691-84f8-73e2c1539db3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -170,6 +176,9 @@
     </ClCompile>
     <ClCompile Include="SpriteAnimation.cpp">
       <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Maths.cpp">
+      <Filter>Source Files\MathFiles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -298,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="SpriteAnimation.h">
       <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Maths.h">
+      <Filter>Header Files\MathFiles</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

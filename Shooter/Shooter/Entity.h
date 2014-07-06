@@ -8,6 +8,7 @@
 #include "IDrawable.h"
 #include "IUpdateable.h"
 #include "EffectsManager.h"
+#include "Maths.h"
 
 enum Face
 {
@@ -47,6 +48,7 @@ public:
 	sf::RectangleShape offensiveQuad;
 	//members
 	sf::Vector2f mVelocity;
+	sf::Vector2f mVelocityGoal;
 	sf::Vector2f mPosition;
 
 	//virtual void Move() {};
